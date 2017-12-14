@@ -16,9 +16,6 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "appcd-detect": "^1.0.0",
-    "appcd-dispatcher": "^1.0.0",
-    "appcd-util": "^1.0.0",
     "gawk": "^4.4.4",
     "ioslib": "^2.0.6",
     "semver": "^5.4.1",
@@ -34,7 +31,8 @@
     "type": "git",
     "url": "git+https://github.com/appcelerator/appc-daemon.git"
   },
-  "appcd-plugin": {
+  "appcd": {
+    "appcdVersion": "1.x",
     "config": "./conf/config.js",
     "name": "ios",
     "os": [
