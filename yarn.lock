@@ -151,20 +151,6 @@ ansi-wrap@0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/ansi-wrap/-/ansi-wrap-0.1.0.tgz#a82250ddb0015e9a27ca82e82ea603bbfa45efaf"
 
-appcd-detect@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/appcd-detect/-/appcd-detect-1.0.0.tgz#d0e53b87f240040712137acdaaa0afa2c207d14c"
-  dependencies:
-    appcd-dispatcher "^1.0.0"
-    appcd-fs "^1.0.0"
-    appcd-logger "^1.0.0"
-    appcd-path "^1.0.0"
-    appcd-subprocess "^1.0.0"
-    appcd-util "^1.0.0"
-    appcd-winreg "^1.0.0"
-    gawk "^4.4.4"
-    source-map-support "^0.5.0"
-
 appcd-dispatcher@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/appcd-dispatcher/-/appcd-dispatcher-1.0.0.tgz#cff0065ffbdee8f922a472eb07e41268f27b0388"
