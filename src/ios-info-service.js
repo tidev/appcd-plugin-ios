@@ -174,7 +174,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 		this.watch({
 			type: PROVISIONING_PROFILES_DIR,
 			paths: [ ioslib.provisioning.getProvisioningProfileDir() ],
-			handler(message) {
+			handler: message => {
 				return Promise.resolve()
 					.then(async () => {
 						const { provisioning } = this.data;
