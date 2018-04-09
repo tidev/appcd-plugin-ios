@@ -5,6 +5,13 @@
  * Fixed URLs in `package.json`.
  * Updated npm dependencies.
 
+# v1.0.1 (Dec 15, 2017)
+
+ * Fixed scope issue where this.data was not resolving.
+   [(DAEMON-211)](https://jira.appcelerator.org/browse/DAEMON-211)
+ * Updated ioslib to fix [DAEMON-209](https://jira.appcelerator.org/browse/DAEMON-209).
+ * Updated npm dependencies.
+
 # v1.0.0 (Dec 5, 2017)
 
- - Initial release.
+ * Initial release.
