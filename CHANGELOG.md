@@ -1,3 +1,9 @@
+# v1.1.1 (Aug 6, 2018)
+
+ * Updated to ioslib@2.2.3 which adds workaround for sim runtimes that have a bad version number in
+   the runtime's `profile.plist` [(DAEMON-259)](https://jira.appcelerator.org/browse/DAEMON-259).
+ * Added watch to the global Xcode license file to re-detect Xcodes when changed.
+
 # v1.1.0 (Apr 9, 2018)
 
  * Removed `appcd-*` dependencies and locked down the appcd version in the `package.json`.
