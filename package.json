@@ -1,6 +1,6 @@
 {
   "name": "appcd-plugin-ios",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "iOS service for the Appc Daemon.",
   "main": "./dist/index",
   "author": "Appcelerator, Inc. <npmjs@appcelerator.com>",
@@ -16,13 +16,13 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "gawk": "^4.4.5",
-    "ioslib": "^2.0.6",
+    "gawk": "^4.5.0",
+    "ioslib": "^2.2.3",
     "semver": "^5.5.0",
-    "source-map-support": "^0.5.4"
+    "source-map-support": "^0.5.6"
   },
   "devDependencies": {
-    "appcd-gulp": "^1.1.2",
+    "appcd-gulp": "^1.1.5",
     "gulp": "^3.9.1"
   },
   "homepage": "https://github.com/appcelerator/appcd-plugin-ios#readme",

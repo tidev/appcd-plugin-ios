@@ -18,6 +18,7 @@ const PROVISIONING_PROFILES_DIR   = 3;
 const GLOBAL_SIM_PROFILES         = 4;
 const CORE_SIMULATOR_DEVICES_PATH = 5;
 const XCODE_SELECT_LINK           = 6;
+const XCODE_LICENSE_FILE          = 7;
 
 /**
  * The iOS info service.
@@ -366,6 +367,12 @@ export default class iOSInfoService extends DataServiceDispatcher {
 					rescanXcode();
 				}
 			}
+		});
+
+		this.watch({
+			type: XCODE_LICENSE_FILE,
+			paths: [ ioslib.xcode.globalLicenseFile ],
+			handler: rescanXcode
 		});
 
 		return this.xcodeDetectEngine.start();
