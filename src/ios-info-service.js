@@ -112,7 +112,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 	async initKeychains() {
 		this.data.keychains = await ioslib.keychains.getKeychains(true);
 
-		this.watch({
+		appcd.fs.watch({
 			type: KEYCHAIN_META_FILE,
 			paths: [ ioslib.keychains.keychainMetaFile ],
 			debounce: true,
@@ -134,7 +134,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 					this.watchKeychainPaths();
 
 					// unwatch the old subscriptions
-					await this.unwatch(KEYCHAIN_PATHS, sids);
+					await appcd.fs.unwatch(KEYCHAIN_PATHS, sids);
 
 					console.log('Refreshing certs');
 					gawk.set(this.data.certs, await ioslib.certs.getCerts(true));
@@ -152,7 +152,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 	 * @access private
 	 */
 	watchKeychainPaths() {
-		this.watch({
+		appcd.fs.watch({
 			type: KEYCHAIN_PATHS,
 			paths: this.data.keychains.map(k => k.path),
 			debounce: true,
@@ -172,7 +172,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 	async initProvisioningProfiles() {
 		gawk.set(this.data.provisioning, await ioslib.provisioning.getProvisioningProfiles(true));
 
-		this.watch({
+		appcd.fs.watch({
 			type: PROVISIONING_PROFILES_DIR,
 			paths: [ ioslib.provisioning.getProvisioningProfileDir() ],
 			handler: message => {
@@ -325,7 +325,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 						paths.push(path.join(xcode.path, `Platforms/${name}.platform/Developer/Library/CoreSimulator/Profiles/Runtimes`));
 					}
 
-					this.watch({
+					appcd.fs.watch({
 						type: xcode.id,
 						paths,
 						debounce: true,
@@ -337,14 +337,14 @@ export default class iOSInfoService extends DataServiceDispatcher {
 			}
 
 			for (const id of xcodeIds) {
-				this.unwatch(id);
+				appcd.fs.unwatch(id);
 			}
 
 			gawk.set(this.data.xcode, xcodes);
 		});
 
 		// watch the global simulator profiles directory for changes
-		this.watch({
+		appcd.fs.watch({
 			type: GLOBAL_SIM_PROFILES,
 			paths: [ ioslib.xcode.globalSimProfilesPath ],
 			debounce: true,
@@ -359,7 +359,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 			this.xcodeDetectEngine.rescan();
 		});
 
-		this.watch({
+		appcd.fs.watch({
 			type: XCODE_SELECT_LINK,
 			paths: [ '/private/var/db' ],
 			handler({ filename }) {
@@ -369,7 +369,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 			}
 		});
 
-		this.watch({
+		appcd.fs.watch({
 			type: XCODE_LICENSE_FILE,
 			paths: [ ioslib.xcode.globalLicenseFile ],
 			handler: rescanXcode
@@ -385,7 +385,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 	 * @access private
 	 */
 	async initSimulators() {
-		this.watch({
+		appcd.fs.watch({
 			type: CORE_SIMULATOR_DEVICES_PATH,
 			paths: [ ioslib.simulator.getDevicesDir() ],
 			depth: 1,
@@ -422,87 +422,6 @@ export default class iOSInfoService extends DataServiceDispatcher {
 	}
 
 	/**
-	 * Subscribes to filesystem events for the specified paths.
-	 *
-	 * @param {Object} params - Various parameters.
-	 * @param {Boolean} [params.debounce=false] - When `true`, wraps the `handler` with a debouncer.
-	 * @param {Number} [params.depth] - The max depth to recursively watch.
-	 * @param {Function} params.handler - A callback function to fire when a fs event occurs.
-	 * @param {Array.<String>} params.paths - One or more paths to watch.
-	 * @param {String} params.type - The type of subscription.
-	 * @access private
-	 */
-	watch({ debounce, depth, handler, paths, type }) {
-		const callback = debounce ? debouncer(handler) : handler;
-
-		for (const path of paths) {
-			const data = { path };
-			if (depth) {
-				data.recursive = true;
-				data.depth = depth;
-			}
-
-			appcd
-				.call('/appcd/fswatch', {
-					data,
-					type: 'subscribe'
-				})
-				.then(ctx => {
-					let sid;
-					ctx.response
-						.on('data', async (data) => {
-							if (data.type === 'subscribe') {
-								sid = data.sid;
-								if (!this.subscriptions[type]) {
-									this.subscriptions[type] = {};
-								}
-								this.subscriptions[type][data.sid] = 1;
-							} else if (data.type === 'event') {
-								callback(data.message);
-							}
-						})
-						.on('end', () => {
-							if (sid && this.subscriptions[type]) {
-								delete this.subscriptions[type][sid];
-							}
-						});
-				});
-		}
-	}
-
-	/**
-	 * Unsubscribes a list of filesystem watcher subscription ids.
-	 *
-	 * @param {Number} type - The type of subscription.
-	 * @param {Array.<String>} [sids] - An array of subscription ids to unsubscribe. If not
-	 * specified, defaults to all sids for the specified types.
-	 * @returns {Promise}
-	 * @access private
-	 */
-	async unwatch(type, sids) {
-		if (!this.subscriptions[type]) {
-			return;
-		}
-
-		if (!sids) {
-			sids = Object.keys(this.subscriptions[type]);
-		}
-
-		for (const sid of sids) {
-			await appcd.call('/appcd/fswatch', {
-				sid,
-				type: 'unsubscribe'
-			});
-
-			delete this.subscriptions[type][sid];
-		}
-
-		if (!Object.keys(this.subscriptions[type]).length) {
-			delete this.subscriptions[type];
-		}
-	}
-
-	/**
 	 * Stops the iOS-related environment watchers.
 	 *
 	 * @returns {Promise}
@@ -521,7 +440,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 
 		if (this.subscriptions) {
 			for (const type of Object.keys(this.subscriptions)) {
-				await this.unwatch(type);
+				await appcd.fs.unwatch(type);
 			}
 		}
 	}
