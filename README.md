@@ -8,9 +8,8 @@ The `info` service uses [ioslib](https://github.com/appcelerator/ioslib) to dete
 Xcodes, Simulators, certs, etc and returns the information.
 
 ```js
-appcd.call('/ios/latest/info', ctx => {
-	console.log(ctx.response);
-});
+const { response } = await appcd.call('/ios/latest/info');
+console.log(response);
 ```
 
 ## Legal
