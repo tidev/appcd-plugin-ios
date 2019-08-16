@@ -1,7 +1,7 @@
 module.exports = {
 	env: {
 		/**
-		 * An override for the `PATH` environment variable.
+		 * An override for the `PATH` environment variable for ioslib's `xcode-select` detection.
 		 * @type {String}
 		 */
 		path: null

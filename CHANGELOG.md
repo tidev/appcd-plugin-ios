@@ -1,3 +1,10 @@
+# v2.0.0
+
+ * BREAKING CHANGE: Updated to latest `ioslib` v3 which changed the iOS sim watch companion map.
+ * feat: Wired up live configuration changes.
+   [(DAEMON-198)](https://jira.appcelerator.org/browse/DAEMON-198)
+ * chore: Update dependencies.
+
 # v1.5.0 (Aug 15, 2019)
 
  * chore: Added Appc Daemon v3 to list of compatible appcd versions.
