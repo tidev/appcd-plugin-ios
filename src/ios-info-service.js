@@ -309,7 +309,7 @@ export default class iOSInfoService extends DataServiceDispatcher {
 				xcodes[xcode.id] = xcode;
 				xcodeIds.delete(xcode.id);
 
-				if (!this.subscriptions.hasOwnProperty(xcode.id)) {
+				if (!Object.prototype.hasOwnProperty.call(this.subscriptions, xcode.id)) {
 					this.subscriptions[xcode.id] = {};
 
 					const paths = [
