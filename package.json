@@ -16,13 +16,13 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "gawk": "^4.6.4",
+    "gawk": "^4.6.6",
     "ioslib": "^3.2.1",
     "semver": "^6.3.0",
-    "source-map-support": "^0.5.13"
+    "source-map-support": "^0.5.16"
   },
   "devDependencies": {
-    "appcd-gulp": "^2.2.0"
+    "appcd-gulp": "^2.3.0"
   },
   "homepage": "https://github.com/appcelerator/appc-daemon",
   "bugs": "https://github.com/appcelerator/appcd-plugin-ios/issues",
