@@ -1,3 +1,10 @@
+# v2.0.0 (Nov 8, 2019)
+
+ * BREAKING CHANGE: Updated to latest `ioslib` v3 which changed the iOS sim watch companion map.
+ * feat: Wired up live configuration changes.
+   [(DAEMON-198)](https://jira.appcelerator.org/browse/DAEMON-198)
+ * chore: Update dependencies.
+
 # v1.5.1 (Nov 8, 2019)
 
  * chore: Update dependencies.
