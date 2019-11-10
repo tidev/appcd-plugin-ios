@@ -1,3 +1,7 @@
+# v2.0.1 (Nov 10, 2019)
+
+ * fix: Fixed appcd version in `package.json`.
+
 # v2.0.0 (Nov 8, 2019)
 
  * BREAKING CHANGE: Updated to latest `ioslib` v3 which changed the iOS sim watch companion map.
