@@ -1,3 +1,8 @@
+# v2.0.4 (Jun 23, 2020)
+
+ * build: Transpile using Node.js 10 profile.
+ * chore: Updated dependencies.
+
 # v2.0.3 (Jun 4, 2020)
 
  * chore: Added API version 2.x.
