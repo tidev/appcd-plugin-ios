@@ -370,7 +370,10 @@ export default class iOSInfoService extends DataServiceDispatcher {
 
 		appcd.fs.watch({
 			type: XCODE_LICENSE_FILE,
-			paths: [ ioslib.xcode.globalLicenseFile ],
+			paths: [
+				ioslib.xcode.globalLicenseFile,
+				ioslib.xcode.userLicenseFile
+			],
 			handler: rescanXcode
 		});
 

@@ -1,3 +1,8 @@
+# v2.0.5
+
+ * fix(xcode): Watch user Xcode license file in addition to the global one.
+ * chore: Updated dependencies.
+
 # v2.0.4 (Jun 23, 2020)
 
  * build: Transpile using Node.js 10 profile.
