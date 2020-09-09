@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "gawk": "^4.7.1",
-    "ioslib": "^4.0.0",
+    "ioslib": "^4.1.0",
     "semver": "^7.3.2",
     "source-map-support": "^0.5.19"
   },
