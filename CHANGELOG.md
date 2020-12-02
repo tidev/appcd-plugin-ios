@@ -1,4 +1,4 @@
-# v2.0.5
+# v2.0.5 (Dec 2, 2020)
 
  * fix(xcode): Watch user Xcode license file in addition to the global one.
  * chore: Updated dependencies.
